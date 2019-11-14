@@ -7,7 +7,7 @@ import './styles.css'
 class TeamsItem_ extends Component {
   render() {
     return (
-      <div className='teamitem-container'>
+      <div className='app-button teamitem-container'>
         <div>{this.props.team.displayName}</div>
       </div>
     );

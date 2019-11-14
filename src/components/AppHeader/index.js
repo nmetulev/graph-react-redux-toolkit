@@ -117,11 +117,11 @@ class AuthPage_ extends Component {
           <img src={logoImg} alt='Bluemedia Company Logo'/>
         </div>
         {!this.props.account ? (
-          <div className='acct-btn-container' onClick={() => this.onSignIn(useRedirectFlow)}>
+          <div className='app-button acct-btn-container' onClick={() => this.onSignIn(useRedirectFlow)}>
             <img src={acctLoginImg} alt='Sign IN'/>
           </div>
         ) : (
-          <div className='acct-btn-container' onClick={this.onSignOut}>
+          <div className='app-button acct-btn-container' onClick={this.onSignOut}>
             <span className='acct-name-text'>{this.props.account.name}</span>
             <img src={acctLogoutImg} alt='Sign OUT'/>
           </div>
