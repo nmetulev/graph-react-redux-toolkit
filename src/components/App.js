@@ -1,99 +1,69 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as Msal from "msal";
+import React from "react";
+import PropTypes from "prop-types";
+import AuthProvider from "./AuthProvider";
 
-import logo from '../logo.svg';
-import './App.css';
-import {setFoo} from "../stateHandlers/actions";
+import "./App.css";
 
-const msalConfig = {
-  auth: {
-    clientId: '958845a3-6c6d-4e10-9ebd-cf6f415a89c6'
-  }
-};
-const msalInstance = new Msal.UserAgentApplication(msalConfig);
+const Json = ({ data }) => <pre>{JSON.stringify(data, null, 4)}</pre>;
 
-msalInstance.handleRedirectCallback((error, response) => {
-  console.log(`handleRedirectCallback error:${error} response:${response}`);
-});
-
-class App_ extends Component {
-  login() {
-    // if the user is already logged in you can acquire a token
-    if (msalInstance.getAccount()) {
-      console.log('already logged in.  getting token');
-      var tokenRequest = {
-        scopes: ["user.read", "mail.send"]
-      };
-      msalInstance.acquireTokenSilent(tokenRequest)
-        .then(response => {
-          console.log(`login acquireTokenSilent response:${response}`);
-        })
-        .catch(err => {
-          console.error(`login acquireTokenSilent err:${err}`);
-          // could also check if err instance of InteractionRequiredAuthError if you can import the class.
-          if (err.name === "InteractionRequiredAuthError") {
-            return msalInstance.acquireTokenPopup(tokenRequest)
-              .then(response => {
-                console.error(`login acquireTokenSilent err:${err} response:${response}`);
-                // get access token from response
-                // response.accessToken
-              })
-              .catch(err2 => {
-                console.error(`login acquireTokenSilent err:${err} err2:${err2}`);
-                // handle error
-              });
-          }
-        });
-    } else {
-      console.log('login needed');
-      var loginRequest = {
-        scopes: ["user.read", "mail.send"] // optional Array<string>
-      };
-
-      msalInstance.loginPopup(loginRequest)
-        .then(response => {
-          console.log(`login response:${response}`);
-        })
-        .catch(err => {
-          console.error(`login err:${err}`);
-        });
-    }
-  }
-
-  constructor(props) {
-    super(props);
-    this.login = this.login.bind(this);
-  }
+class App extends React.Component {
+  static propTypes = {
+    account: PropTypes.object,
+    emailMessages: PropTypes.object,
+    error: PropTypes.string,
+    graphProfile: PropTypes.object,
+    onSignIn: PropTypes.func.isRequired,
+    onSignOut: PropTypes.func.isRequired,
+    onRequestEmailToken: PropTypes.func.isRequired
+  };
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" onClick={()=>this.props.setFoo('bar')}/>
-          {this.props.foo}
-          <button onClick={this.login}>LOGIN</button>
-        </div>
+      <div>
+        <section>
+          <h1>
+            Welcome to the Microsoft Authentication Library For
+            Javascript - React Quickstart
+          </h1>
+          {!this.props.account ? (
+            <button onClick={this.props.onSignIn}>Sign In</button>
+          ) : (
+            <>
+              <button onClick={this.props.onSignOut}>
+                Sign Out
+              </button>
+              <button onClick={this.props.onRequestEmailToken}>
+                Request Email Permission
+              </button>
+            </>
+          )}
+          {this.props.error && (
+            <p className="error">Error: {this.props.error}</p>
+          )}
+        </section>
+        <section className="data">
+          {this.props.account && (
+            <div className="data-account">
+              <h2>Session Account Data</h2>
+              <Json data={this.props.account} />
+            </div>
+          )}
+          {this.props.graphProfile && (
+            <div className="data-graph">
+              <h2>Graph Profile Data</h2>
+              <Json data={this.props.graphProfile} />
+            </div>
+          )}
+          {this.props.emailMessages && (
+            <div className="data-graph">
+              <h2>Messages Data</h2>
+              <Json data={this.props.emailMessages} />
+            </div>
+          )}
+        </section>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    foo: state.foo,
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setFoo: foo => dispatch(setFoo(foo)),
-  }
-};
-
-const App = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App_);
-
-export default App;
+export default AuthProvider(App);
