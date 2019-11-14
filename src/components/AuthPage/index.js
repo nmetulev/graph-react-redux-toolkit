@@ -6,6 +6,10 @@ import {
   setAccessToken,
   loadAllData,
 } from "../../stateHandlers/actions";
+import logoImg from '../../images/bluemedia-logo.png';
+import acctLoginImg from '../../images/account-login-8x.png';
+import acctLogoutImg from '../../images/account-logout-8x.png';
+import './styles.css'
 
 import {
   GRAPH_REQUESTS,
@@ -23,6 +27,13 @@ class AuthPage_ extends Component {
     this.state = {
       error: null,
     };
+    this.initApp = this.initApp.bind(this);
+  }
+
+  initApp(account, token) {
+    this.props.setAccount(account);
+    this.props.setAccessToken(token);
+    this.props.loadAllData();
   }
 
   async acquireToken(request, redirect) {
@@ -54,7 +65,6 @@ class AuthPage_ extends Component {
       this.setState({
         error: null
       });
-      this.props.setAccount(loginResponse.account);
 
       const tokenResponse = await this.acquireToken(
         GRAPH_REQUESTS.LOGIN
@@ -65,7 +75,7 @@ class AuthPage_ extends Component {
       });
 
       if (tokenResponse) {
-        this.props.setAccessToken(tokenResponse.accessToken);
+        this.initApp(loginResponse.account, tokenResponse.accessToken);
       }
     }
   }
@@ -87,8 +97,6 @@ class AuthPage_ extends Component {
 
     const account = msalApp.getAccount();
 
-    this.props.setAccount(account);
-
     if (account) {
       const tokenResponse = await this.acquireToken(
         GRAPH_REQUESTS.LOGIN,
@@ -96,18 +104,26 @@ class AuthPage_ extends Component {
       );
 
       if (tokenResponse) {
-        this.props.setAccessToken(tokenResponse.accessToken);
+        this.initApp(account, tokenResponse.accessToken);
       }
     }
   }
 
   render() {
+    console.log('account:',this.props.account);
     return (
-      <div>
+      <div className='header'>
+        <div className='logo-container'>
+          <img src={logoImg}/>
+        </div>
         {!this.props.account ? (
-          <button onClick={() => this.onSignIn(useRedirectFlow)}>Sign In</button>
+          <div className='acct-btn-container' onClick={() => this.onSignIn(useRedirectFlow)}>
+            <img src={acctLoginImg}/>
+          </div>
         ) : (
-          <button onClick={this.onSignOut}>Sign Out</button>
+          <div className='acct-btn-container' onClick={this.onSignOut}>
+          <img src={acctLogoutImg}/>
+          </div>
         )}
         {this.state.error && (
           <p className="error">Error: {this.error}</p>

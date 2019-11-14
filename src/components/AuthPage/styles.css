@@ -1,0 +1,27 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo-container {
+    background-color: #e6e7e8;
+    padding: 15px 30px;
+    margin-left: 30px;
+}
+
+.acct-btn-container {
+    padding: 15px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin: 2px;
+}
+.acct-btn-container:hover {
+    background-color: #e6e7e8;
+    border: 1px solid #282c34;
+    border-radius: 3px;
+}
+.acct-btn-container img {
+    width: 20px;
+    height: 20px;
+}
