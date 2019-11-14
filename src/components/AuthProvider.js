@@ -8,6 +8,9 @@ import {
   GRAPH_SCOPES,
   GRAPH_REQUESTS
 } from "./auth-utils";
+import * as MicrosoftGraph from "@microsoft/microsoft-graph-client";
+import { ImplicitMSALAuthenticationProvider }  from "@microsoft/microsoft-graph-client/lib/src/ImplicitMSALAuthenticationProvider";
+import { MSALAuthenticationProviderOptions }  from "@microsoft/microsoft-graph-client/lib/src/MSALAuthenticationProviderOptions";
 
 // If you support IE, our recommendation is that you sign-in using Redirect APIs
 const useRedirectFlow = isIE();
@@ -171,6 +174,23 @@ export default C =>
       }
     }
 
+    async getMe() {
+      const graphScopes = ["user.read"];
+      const options1 = new MSALAuthenticationProviderOptions(graphScopes);
+      const authProvider = new ImplicitMSALAuthenticationProvider(msalApp, options1);
+      const options2 = {
+        authProvider, // An instance created from previous step
+      };
+      const Client = MicrosoftGraph.Client;
+      const client = Client.initWithMiddleware(options2);
+      try {
+        let userDetails = await client.api("/me").get();
+        console.log(userDetails);
+      } catch (error) {
+        throw error;
+      }
+    }
+
     render() {
       return (
         <C
@@ -182,6 +202,7 @@ export default C =>
           onSignIn={() => this.onSignIn(useRedirectFlow)}
           onSignOut={() => this.onSignOut()}
           onRequestEmailToken={() => this.onRequestEmailToken()}
+          getMe={() => this.getMe()}
         />
       );
     }

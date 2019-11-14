@@ -14,7 +14,8 @@ class App extends React.Component {
     graphProfile: PropTypes.object,
     onSignIn: PropTypes.func.isRequired,
     onSignOut: PropTypes.func.isRequired,
-    onRequestEmailToken: PropTypes.func.isRequired
+    onRequestEmailToken: PropTypes.func.isRequired,
+    getMe: PropTypes.func.isRequired,
   };
 
   render() {
@@ -34,6 +35,9 @@ class App extends React.Component {
               </button>
               <button onClick={this.props.onRequestEmailToken}>
                 Request Email Permission
+              </button>
+              <button onClick={this.props.getMe}>
+                Get ME
               </button>
             </>
           )}
