@@ -136,8 +136,14 @@ class Request {
   }
 }
 
-export function fetchAllMyTeams() {
+export function fetchMyTeamsApi() {
   return new Request.Builder('me/memberOf')
+    .build()
+    .execute();
+}
+
+export function fetchGroupMembersApi(groupId) {
+  return new Request.Builder(`groups/${groupId}/members`)
     .build()
     .execute();
 }

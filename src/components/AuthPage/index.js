@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {MSALAuthenticationProviderOptions} from "@microsoft/microsoft-graph-client/lib/src/MSALAuthenticationProviderOptions";
-import {ImplicitMSALAuthenticationProvider} from "@microsoft/microsoft-graph-client/lib/src/ImplicitMSALAuthenticationProvider";
-import * as MicrosoftGraph from "@microsoft/microsoft-graph-client";
+// import {MSALAuthenticationProviderOptions} from "@microsoft/microsoft-graph-client/lib/src/MSALAuthenticationProviderOptions";
+// import {ImplicitMSALAuthenticationProvider} from "@microsoft/microsoft-graph-client/lib/src/ImplicitMSALAuthenticationProvider";
+// import * as MicrosoftGraph from "@microsoft/microsoft-graph-client";
 
 import {
   setAccount,
   setMsalApp,
   setAccessToken,
+  fetchMyTeams,
 } from "../../stateHandlers/actions";
 
 import {
@@ -34,6 +35,8 @@ class AuthPage_ extends Component {
       emailMessages: null,
       graphProfile: null
     };
+
+    this.getMe = this.getMe.bind(this);
   }
 
   async acquireToken(request, redirect) {
@@ -185,20 +188,21 @@ class AuthPage_ extends Component {
   }
 
   async getMe() {
-    const graphScopes = ["user.read"];
-    const options1 = new MSALAuthenticationProviderOptions(graphScopes);
-    const authProvider = new ImplicitMSALAuthenticationProvider(msalApp, options1);
-    const options2 = {
-      authProvider, // An instance created from previous step
-    };
-    const Client = MicrosoftGraph.Client;
-    const client = Client.initWithMiddleware(options2);
-    try {
-      let userDetails = await client.api("/me").get();
-      console.log(userDetails);
-    } catch (error) {
-      throw error;
-    }
+    this.props.fetchMyTeams();
+    // const graphScopes = ["user.read"];
+    // const options1 = new MSALAuthenticationProviderOptions(graphScopes);
+    // const authProvider = new ImplicitMSALAuthenticationProvider(msalApp, options1);
+    // const options2 = {
+    //   authProvider, // An instance created from previous step
+    // };
+    // const Client = MicrosoftGraph.Client;
+    // const client = Client.initWithMiddleware(options2);
+    // try {
+    //   let userDetails = await client.api("/me").get();
+    //   console.log(userDetails);
+    // } catch (error) {
+    //   throw error;
+    // }
   }
 
   render() {
@@ -264,6 +268,7 @@ const mapDispatchToProps = dispatch => {
     setAccount:     account =>      dispatch(setAccount(account)),
     setMsalApp:     msalApp =>      dispatch(setMsalApp(msalApp)),
     setAccessToken: accessToken =>  dispatch(setAccessToken(accessToken)),
+    fetchMyTeams:   () =>           dispatch(fetchMyTeams()),
   }
 };
 
