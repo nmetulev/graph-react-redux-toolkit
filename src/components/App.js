@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import AuthPage from "./AuthPage";
+import AuthPage from "./AppHeader";
 import ControlPage from "./ControlPage";
 import "./App.css";
 

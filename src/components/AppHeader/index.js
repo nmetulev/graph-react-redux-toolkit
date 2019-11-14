@@ -122,7 +122,8 @@ class AuthPage_ extends Component {
           </div>
         ) : (
           <div className='acct-btn-container' onClick={this.onSignOut}>
-          <img src={acctLogoutImg}/>
+            <span className='acct-name-text'>{this.props.account.name}</span>
+            <img src={acctLogoutImg}/>
           </div>
         )}
         {this.state.error && (

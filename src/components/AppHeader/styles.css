@@ -11,6 +11,10 @@
 }
 
 .acct-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
     padding: 15px;
     cursor: pointer;
     border: 1px solid transparent;
@@ -24,4 +28,11 @@
 .acct-btn-container img {
     width: 20px;
     height: 20px;
+}
+
+.acct-name-text {
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 5px;
 }
