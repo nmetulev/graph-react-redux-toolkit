@@ -54,7 +54,8 @@ function _apiCall(options={}){
     return promise
       .then(response=>{
         if(options.rcvdFunc) {
-          return dispatch(options.rcvdFunc(response));
+          // *.value is the MS Graph response specification
+          return dispatch(options.rcvdFunc(response.value));
         } else {
           return response;
         }
