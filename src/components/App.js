@@ -2,17 +2,23 @@ import React from "react";
 import { connect } from 'react-redux';
 
 import AuthPage from "./AuthPage";
+import ControlPage from "./ControlPage";
 import "./App.css";
 
 class App_ extends React.Component {
   render() {
-    return <AuthPage/>;
+    return (
+      <div>
+        <AuthPage/>
+        {(this.props.account) ? <ControlPage/> : <div/>}
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => {
   return{
-    setMsalApp: state.setMsalApp,
+    account: state.account,
   }
 };
 

@@ -42,6 +42,29 @@ export function fetchMyTeams() {
   });
 }
 
+export function loadAllData() {
+  return (dispatch, getState) => {
+
+    return dispatch(fetchMyTeams())
+      // .then(async ()=>{
+      //   const promises = [await dispatch(fetchAccountIds())];
+      //   const state = getState();
+      //   const userRoles = state.userRoles;
+      //   if(userRoles.includes(Roles.rootAdmin)) {
+      //     promises.push(dispatch(fetchUsersList()));
+      //     promises.push(dispatch(fetchAllUserAlertTypes()));
+      //   }
+      //   if(userRoles.includes(Roles.rootAdmin) || userRoles.includes(Roles.salesAdmin)) {
+      //     promises.push(dispatch(fetchTodaysSales()));
+      //   }
+      //   return Promise.all(promises);
+      // })
+      .catch((error)=>{
+        console.error('loadAllData error:',error);
+      })
+      ;
+  };
+}
 
 function _apiCall(options={}){
   return (dispatch) => {

@@ -19,7 +19,7 @@ import {
   isIE,
   msalApp,
   requiresInteraction
-} from "../auth-utils";
+} from "./auth-utils";
 
 const useRedirectFlow = isIE();
 
@@ -69,6 +69,7 @@ class AuthPage_ extends Component {
         account: loginResponse.account,
         error: null
       });
+      this.props.setAccount(loginResponse.account);
 
       const tokenResponse = await this.acquireToken(
         GRAPH_REQUESTS.LOGIN
@@ -209,50 +210,21 @@ class AuthPage_ extends Component {
   render() {
     return (
       <div>
-        <section>
-          <h1>
-            Welcome to the Microsoft Authentication Library For
-            Javascript - React Quickstart
-          </h1>
-          {!this.state.account ? (
-            <button onClick={() => this.onSignIn(useRedirectFlow)}>Sign In</button>
-          ) : (
-            <>
-              <button onClick={this.onSignOut}>
-                Sign Out
-              </button>
-              <button onClick={this.onRequestEmailToken}>
-                Request Email Permission
-              </button>
-              <button onClick={this.getMe}>
-                Get ME
-              </button>
-            </>
-          )}
-          {this.state.error && (
-            <p className="error">Error: {this.error}</p>
-          )}
-        </section>
-        <section className="data">
-          {this.state.account && (
-            <div className="data-account">
-              <h2>Session Account Data</h2>
-              <Json data={this.state.account} />
-            </div>
-          )}
-          {this.state.graphProfile && (
-            <div className="data-graph">
-              <h2>Graph Profile Data</h2>
-              <Json data={this.state.graphProfile} />
-            </div>
-          )}
-          {this.state.emailMessages && (
-            <div className="data-graph">
-              <h2>Messages Data</h2>
-              <Json data={this.state.emailMessages} />
-            </div>
-          )}
-        </section>
+        {!this.state.account ? (
+          <button onClick={() => this.onSignIn(useRedirectFlow)}>Sign In</button>
+        ) : (
+          <>
+            <button onClick={this.onSignOut}>
+              Sign Out
+            </button>
+            <button onClick={this.getMe}>
+              Get ME
+            </button>
+          </>
+        )}
+        {this.state.error && (
+          <p className="error">Error: {this.error}</p>
+        )}
       </div>
     );
   }
