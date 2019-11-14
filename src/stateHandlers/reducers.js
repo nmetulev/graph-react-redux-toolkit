@@ -1,15 +1,16 @@
 import {
-  SET_FOO
+  SET_MSAL_APP
 } from "./actionTypes";
 
 const initialState = {
-  foo: '[not set]',
+  msalApp: null,
+  account: null,
 };
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case SET_FOO:
-      return {...state, ...{foo:action.foo}};
+    case SET_MSAL_APP:
+      return {...state, ...{msalApp:action.msalApp}};
 
     default:
       return state

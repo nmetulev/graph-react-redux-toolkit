@@ -1,10 +1,17 @@
 import {
-  SET_FOO
+  SET_ACCOUNT,
+  SET_MSAL_APP
 } from "./actionTypes";
 
-export function setFoo(foo) {
+export function setMsalApp(msalApp) {
   return {
-    type: SET_FOO,
-    foo: foo
+    type: SET_MSAL_APP,
+    msalApp: msalApp
+  }
+}
+export function setAccount(account) {
+  return {
+    type: SET_ACCOUNT,
+    account: account
   }
 }
