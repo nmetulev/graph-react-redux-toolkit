@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import {MSALAuthenticationProviderOptions} from "@microsoft/microsoft-graph-client/lib/src/MSALAuthenticationProviderOptions";
-// import {ImplicitMSALAuthenticationProvider} from "@microsoft/microsoft-graph-client/lib/src/ImplicitMSALAuthenticationProvider";
-// import * as MicrosoftGraph from "@microsoft/microsoft-graph-client";
 
 import {
   setAccount,
-  setMsalApp,
   setAccessToken,
-  fetchMyTeams,
+  loadAllData,
 } from "../../stateHandlers/actions";
 
 import {
-  fetchMsGraph,
-  GRAPH_ENDPOINTS,
   GRAPH_REQUESTS,
-  GRAPH_SCOPES,
   isIE,
   msalApp,
   requiresInteraction
@@ -23,20 +16,13 @@ import {
 
 const useRedirectFlow = isIE();
 
-const Json = ({ data }) => <pre>{JSON.stringify(data, null, 4)}</pre>;
-
 class AuthPage_ extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      account: null,
       error: null,
-      emailMessages: null,
-      graphProfile: null
     };
-
-    this.getMe = this.getMe.bind(this);
   }
 
   async acquireToken(request, redirect) {
@@ -66,7 +52,6 @@ class AuthPage_ extends Component {
 
     if (loginResponse) {
       this.setState({
-        account: loginResponse.account,
         error: null
       });
       this.props.setAccount(loginResponse.account);
@@ -81,63 +66,12 @@ class AuthPage_ extends Component {
 
       if (tokenResponse) {
         this.props.setAccessToken(tokenResponse.accessToken);
-        const graphProfile = await fetchMsGraph(
-          GRAPH_ENDPOINTS.ME,
-          tokenResponse.accessToken
-        ).catch(() => {
-          this.setState({
-            error: "Unable to fetch Graph profile."
-          });
-        });
-
-        if (graphProfile) {
-          this.setState({
-            graphProfile
-          });
-        }
-
-        if (tokenResponse.scopes.indexOf(GRAPH_SCOPES.MAIL_READ) > 0) {
-          return this.readMail(tokenResponse.accessToken);
-        }
       }
     }
   }
 
   onSignOut() {
     msalApp.logout();
-  }
-
-  async onRequestEmailToken() {
-    const tokenResponse = await this.acquireToken(
-      GRAPH_REQUESTS.EMAIL,
-      useRedirectFlow
-    ).catch(e => {
-      this.setState({
-        error: "Unable to acquire access token for reading email."
-      });
-    });
-
-    if (tokenResponse) {
-      return this.readMail(tokenResponse.accessToken);
-    }
-  }
-
-  async readMail(accessToken) {
-    const emailMessages = await fetchMsGraph(
-      GRAPH_ENDPOINTS.MAIL,
-      accessToken
-    ).catch(() => {
-      this.setState({
-        error: "Unable to fetch email messages."
-      });
-    });
-
-    if (emailMessages) {
-      this.setState({
-        emailMessages,
-        error: null
-      });
-    }
   }
 
   async componentDidMount() {
@@ -154,10 +88,6 @@ class AuthPage_ extends Component {
     const account = msalApp.getAccount();
 
     this.props.setAccount(account);
-    this.props.setMsalApp(msalApp);
-    this.setState({
-      account
-    });
 
     if (account) {
       const tokenResponse = await this.acquireToken(
@@ -167,60 +97,17 @@ class AuthPage_ extends Component {
 
       if (tokenResponse) {
         this.props.setAccessToken(tokenResponse.accessToken);
-        const graphProfile = await fetchMsGraph(
-          GRAPH_ENDPOINTS.ME,
-          tokenResponse.accessToken
-        ).catch(() => {
-          this.setState({
-            error: "Unable to fetch Graph profile."
-          });
-        });
-
-        if (graphProfile) {
-          this.setState({
-            graphProfile
-          });
-        }
-
-        if (tokenResponse.scopes.indexOf(GRAPH_SCOPES.MAIL_READ) > 0) {
-          return this.readMail(tokenResponse.accessToken);
-        }
       }
     }
-  }
-
-  async getMe() {
-    this.props.fetchMyTeams();
-    // const graphScopes = ["user.read"];
-    // const options1 = new MSALAuthenticationProviderOptions(graphScopes);
-    // const authProvider = new ImplicitMSALAuthenticationProvider(msalApp, options1);
-    // const options2 = {
-    //   authProvider, // An instance created from previous step
-    // };
-    // const Client = MicrosoftGraph.Client;
-    // const client = Client.initWithMiddleware(options2);
-    // try {
-    //   let userDetails = await client.api("/me").get();
-    //   console.log(userDetails);
-    // } catch (error) {
-    //   throw error;
-    // }
   }
 
   render() {
     return (
       <div>
-        {!this.state.account ? (
+        {!this.props.account ? (
           <button onClick={() => this.onSignIn(useRedirectFlow)}>Sign In</button>
         ) : (
-          <>
-            <button onClick={this.onSignOut}>
-              Sign Out
-            </button>
-            <button onClick={this.getMe}>
-              Get ME
-            </button>
-          </>
+          <button onClick={this.onSignOut}>Sign Out</button>
         )}
         {this.state.error && (
           <p className="error">Error: {this.error}</p>
@@ -232,16 +119,15 @@ class AuthPage_ extends Component {
 
 const mapStateToProps = state => {
   return{
-    // accountsById: state.accountsById,
+    account: state.account,
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return{
     setAccount:     account =>      dispatch(setAccount(account)),
-    setMsalApp:     msalApp =>      dispatch(setMsalApp(msalApp)),
     setAccessToken: accessToken =>  dispatch(setAccessToken(accessToken)),
-    fetchMyTeams:   () =>           dispatch(fetchMyTeams()),
+    loadAllData:   () =>           dispatch(loadAllData()),
   }
 };
 
