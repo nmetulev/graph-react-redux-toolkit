@@ -114,16 +114,16 @@ class AuthPage_ extends Component {
     return (
       <div className='header'>
         <div className='logo-container'>
-          <img src={logoImg}/>
+          <img src={logoImg} alt='Bluemedia Company Logo'/>
         </div>
         {!this.props.account ? (
           <div className='acct-btn-container' onClick={() => this.onSignIn(useRedirectFlow)}>
-            <img src={acctLoginImg}/>
+            <img src={acctLoginImg} alt='Sign IN'/>
           </div>
         ) : (
           <div className='acct-btn-container' onClick={this.onSignOut}>
             <span className='acct-name-text'>{this.props.account.name}</span>
-            <img src={acctLogoutImg}/>
+            <img src={acctLogoutImg} alt='Sign OUT'/>
           </div>
         )}
         {this.state.error && (
