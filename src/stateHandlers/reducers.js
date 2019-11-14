@@ -5,6 +5,7 @@ import {
 const initialState = {
   msalApp: null,
   account: null,
+  accessToken: null,
 };
 
 function reducer(state = initialState, action) {

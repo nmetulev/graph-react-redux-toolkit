@@ -7,6 +7,7 @@ import * as MicrosoftGraph from "@microsoft/microsoft-graph-client";
 import {
   setAccount,
   setMsalApp,
+  setAccessToken,
 } from "../../stateHandlers/actions";
 
 import {
@@ -48,7 +49,6 @@ class AuthPage_ extends Component {
   }
 
   async onSignIn(redirect) {
-    console.log('asdf');
     if (redirect) {
       return msalApp.loginRedirect(GRAPH_REQUESTS.LOGIN);
     }
@@ -76,6 +76,7 @@ class AuthPage_ extends Component {
       });
 
       if (tokenResponse) {
+        this.props.setAccessToken(tokenResponse.accessToken);
         const graphProfile = await fetchMsGraph(
           GRAPH_ENDPOINTS.ME,
           tokenResponse.accessToken
@@ -260,8 +261,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    setAccount:   account => dispatch(setAccount(account)),
-    setMsalApp:   msalApp => dispatch(setMsalApp(msalApp)),
+    setAccount:     account =>      dispatch(setAccount(account)),
+    setMsalApp:     msalApp =>      dispatch(setMsalApp(msalApp)),
+    setAccessToken: accessToken =>  dispatch(setAccessToken(accessToken)),
   }
 };
 
