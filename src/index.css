@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #636466;
   font-family: "proxima-nova",Arial,sans-serif;
+  width: 530px;
+  height: 600px;
+  border: 1px solid lightgray;
+  font-weight: 500;
 }
 
 code {

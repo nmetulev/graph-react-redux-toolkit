@@ -1,0 +1,42 @@
+
+.controlpage-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.teamlist-container {
+    display: inline-block;
+}
+
+.teamitem-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 10px;
+    margin: 2px;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.column-title-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 10px;
+    margin: 2px;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #e6e7e8;
+    font-size: 18px;
+    font-weight: 600;
+}

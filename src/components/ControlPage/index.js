@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  fetchMyTeams,
-} from "../../stateHandlers/actions";
+import TeamsList from "./TeamsList";
 
 class MainControlPage_ extends Component {
 
   render() {
     return (
-      <div>
-        Many Teams: {this.props.myTeams.length}
+      <div className='controlpage-container'>
+        <TeamsList/>
       </div>
     );
   }
@@ -24,7 +22,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    fetchMyTeams: () => dispatch(fetchMyTeams()),
+    // fetchMyTeams: () => dispatch(fetchMyTeams()),
   }
 };
 
