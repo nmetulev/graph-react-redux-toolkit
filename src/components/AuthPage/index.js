@@ -4,9 +4,11 @@ import {MSALAuthenticationProviderOptions} from "@microsoft/microsoft-graph-clie
 import {ImplicitMSALAuthenticationProvider} from "@microsoft/microsoft-graph-client/lib/src/ImplicitMSALAuthenticationProvider";
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-client";
 
-// import {
-//   setMsalApp,
-// } from "../../stateHandlers/actions";
+import {
+  setAccount,
+  setMsalApp,
+} from "../../stateHandlers/actions";
+
 import {
   fetchMsGraph,
   GRAPH_ENDPOINTS,
@@ -146,6 +148,8 @@ class AuthPage_ extends Component {
 
     const account = msalApp.getAccount();
 
+    this.props.setAccount(account);
+    this.props.setMsalApp(msalApp);
     this.setState({
       account
     });
@@ -256,7 +260,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    // setTokenExpirationTime:   tokenExpirationTime => dispatch(setTokenExpirationTime(tokenExpirationTime)),
+    setAccount:   account => dispatch(setAccount(account)),
+    setMsalApp:   msalApp => dispatch(setMsalApp(msalApp)),
   }
 };
 

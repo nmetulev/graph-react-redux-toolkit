@@ -1,12 +1,31 @@
 import React from "react";
-import AuthPage from "./AuthPage";
+import { connect } from 'react-redux';
 
+import AuthPage from "./AuthPage";
 import "./App.css";
 
-class App extends React.Component {
+class App_ extends React.Component {
   render() {
     return <AuthPage/>;
   }
 }
 
+const mapStateToProps = state => {
+  return{
+    setMsalApp: state.setMsalApp,
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return{
+    // setTokenExpirationTime:   tokenExpirationTime => dispatch(setTokenExpirationTime(tokenExpirationTime)),
+  }
+};
+
+const App = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App_);
+
 export default App;
+
