@@ -20,6 +20,7 @@ function reducer(state = initialState, action) {
     case SET_ACCESS_TOKEN:
       return {...state, ...{accessToken:action.accessToken}};
     case SET_MY_TEAMS:
+      console.log('action.myTeams:',action.myTeams);
       return {...state, ...{myTeams:action.myTeams}};
 
     default:

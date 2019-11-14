@@ -165,6 +165,7 @@ class AuthPage_ extends Component {
       );
 
       if (tokenResponse) {
+        this.props.setAccessToken(tokenResponse.accessToken);
         const graphProfile = await fetchMsGraph(
           GRAPH_ENDPOINTS.ME,
           tokenResponse.accessToken
