@@ -110,7 +110,6 @@ class AuthPage_ extends Component {
   }
 
   render() {
-    console.log('account:',this.props.account);
     return (
       <div className='header'>
         <div className='logo-container'>

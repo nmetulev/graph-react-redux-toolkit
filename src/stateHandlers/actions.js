@@ -1,16 +1,10 @@
 import {
   SET_ACCESS_TOKEN,
   SET_ACCOUNT,
-  SET_MSAL_APP, SET_MY_TEAMS
+  SET_MY_TEAMS,
+  SET_GROUP_MEMBERS,
 } from "./actionTypes";
-import {setAccessTokenApi, fetchMyTeamsApi} from './api';
-
-export function setMsalApp(msalApp) {
-  return {
-    type: SET_MSAL_APP,
-    msalApp: msalApp
-  }
-}
+import {setAccessTokenApi, fetchMyTeamsApi, fetchGroupMembersApi} from './api';
 
 export function setAccount(account) {
   return {
@@ -34,6 +28,14 @@ function setMyTeams(myTeams) {
   }
 }
 
+function setGroupMembers(groupId, groupMembers) {
+  return {
+    type: SET_GROUP_MEMBERS,
+    groupId: groupId,
+    groupMembers: groupMembers,
+  }
+}
+
 export function fetchMyTeams() {
   return _apiCall({
     apiFunc: fetchMyTeamsApi,
@@ -42,23 +44,24 @@ export function fetchMyTeams() {
   });
 }
 
+export function fetchGroupMembers(groupId) {
+  return _apiCall({
+    apiFunc: fetchGroupMembersApi,
+    apiFuncParam: [groupId],
+    rcvdFunc: groupMembers=>dispatch=>dispatch(setGroupMembers(groupId, groupMembers)),
+  });
+}
+
 export function loadAllData() {
   return (dispatch, getState) => {
 
     return dispatch(fetchMyTeams())
-      // .then(async ()=>{
-      //   const promises = [await dispatch(fetchAccountIds())];
-      //   const state = getState();
-      //   const userRoles = state.userRoles;
-      //   if(userRoles.includes(Roles.rootAdmin)) {
-      //     promises.push(dispatch(fetchUsersList()));
-      //     promises.push(dispatch(fetchAllUserAlertTypes()));
-      //   }
-      //   if(userRoles.includes(Roles.rootAdmin) || userRoles.includes(Roles.salesAdmin)) {
-      //     promises.push(dispatch(fetchTodaysSales()));
-      //   }
-      //   return Promise.all(promises);
-      // })
+      .then(async ()=>{
+        const state = getState();
+        const myTeams = state.myTeams;
+        const promises = myTeams.map(async team=>await dispatch(fetchGroupMembers(team.id)));
+        return Promise.all(promises);
+      })
       .catch((error)=>{
         console.error('loadAllData error:',error);
       })

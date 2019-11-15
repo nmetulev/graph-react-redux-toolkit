@@ -1,11 +1,10 @@
 import {
   SET_ACCESS_TOKEN,
   SET_ACCOUNT,
-  SET_MSAL_APP, SET_MY_TEAMS
+  SET_MY_TEAMS
 } from "./actionTypes";
 
 const initialState = {
-  msalApp: null,
   account: null,
   accessToken: null,
   myTeams: [],
@@ -13,8 +12,6 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case SET_MSAL_APP:
-      return {...state, ...{msalApp:action.msalApp}};
     case SET_ACCOUNT:
       return {...state, ...{account:action.account}};
     case SET_ACCESS_TOKEN:

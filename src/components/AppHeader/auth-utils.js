@@ -57,6 +57,8 @@ export const GRAPH_REQUESTS = {
       "Directory.Read.All",
       "Directory.ReadWrite.All",
       "Directory.AccessAsUser.All",
+      "Group.Read.All",
+      "Group.ReadWrite.All"
     ]
   },
   EMAIL: {
