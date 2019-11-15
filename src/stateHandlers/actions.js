@@ -2,7 +2,7 @@ import {
   SET_ACCESS_TOKEN,
   SET_ACCOUNT,
   SET_MY_TEAMS,
-  SET_GROUP_MEMBERS,
+  SET_GROUP_MEMBERS, SELECT_GROUP,
 } from "./actionTypes";
 import {setAccessTokenApi, fetchMyTeamsApi, fetchGroupMembersApi} from './api';
 
@@ -25,6 +25,13 @@ function setMyTeams(myTeams) {
   return {
     type: SET_MY_TEAMS,
     myTeams: myTeams,
+  }
+}
+
+export function selectGroup(seletedGroup) {
+  return {
+    type: SELECT_GROUP,
+    seletedGroup: seletedGroup,
   }
 }
 
@@ -59,7 +66,7 @@ export function loadAllData() {
       .then(async ()=>{
         const state = getState();
         const myTeams = state.myTeams;
-        const promises = myTeams.map(async team=>await dispatch(fetchGroupMembers(team.id)));
+        const promises = myTeams.map(async team=>await dispatch(fetchGroupMembers(team.id)).catch(e=>console.error('error:',e)));
         return Promise.all(promises);
       })
       .catch((error)=>{

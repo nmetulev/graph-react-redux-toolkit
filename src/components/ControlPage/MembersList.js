@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import TeamItem from "./TeamItem";
 import './styles.css'
 
-class TeamsList_ extends Component {
+class MembersList_ extends Component {
 
   render() {
     const teamItems = this.props.myTeams.map(team=>{
       console.log('team:',team);
-      return <TeamItem team={team} key={team.id} seletedGroup={this.props.seletedGroup}/>
+      return <TeamItem team={team} key={team.id}/>
     });
     return (
       <div className='teamlist-container'>
@@ -23,7 +23,7 @@ class TeamsList_ extends Component {
 const mapStateToProps = state => {
   return{
     myTeams: state.myTeams,
-    seletedGroup: state.seletedGroup,
+    membersByGroup: state.membersByGroup
   }
 };
 
@@ -33,9 +33,9 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-const TeamsList = connect(
+const MembersList = connect(
   mapStateToProps,
   mapDispatchToProps
-)(TeamsList_);
+)(MembersList_);
 
-export default TeamsList;
+export default MembersList;

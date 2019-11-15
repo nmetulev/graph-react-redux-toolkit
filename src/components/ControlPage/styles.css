@@ -18,6 +18,10 @@
     font-size: 14px;
 }
 
+.group-item-selected {
+    background-color: lightblue;
+}
+
 .column-title-text {
     display: flex;
     flex-direction: row;
