@@ -117,6 +117,7 @@ class AuthPage_ extends Component {
         </div>
         {!this.props.account ? (
           <div className='app-button acct-btn-container' onClick={() => this.onSignIn(useRedirectFlow)}>
+            <span className='acct-name-text'>Sign In</span>
             <img src={acctLoginImg} alt='Sign IN'/>
           </div>
         ) : (
