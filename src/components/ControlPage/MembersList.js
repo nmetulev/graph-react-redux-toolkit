@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import TeamItem from "./TeamItem";
+import MemberItem from "./MemberItem";
 import './styles.css'
 
 class MembersList_ extends Component {
 
   render() {
-    const teamItems = this.props.myTeams.map(team=>{
-      console.log('team:',team);
-      return <TeamItem team={team} key={team.id}/>
+    const memberItems = this.props.members.map(member=>{
+      return <MemberItem member={member} key={member.id}/>
     });
     return (
       <div className='teamlist-container'>
-        <div className='column-title-text'>Teams</div>
-        {teamItems}
+        <div className='column-title-text'>Members</div>
+        {memberItems}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
+  let members = [];
+  if(state.seletedGroup && state.seletedGroup.id) {
+    members = state.membersByGroup[state.seletedGroup.id] || [];
+  }
   return{
-    myTeams: state.myTeams,
-    membersByGroup: state.membersByGroup
+    members: members,
+    seletedGroup: state.seletedGroup
   }
 };
 

@@ -10,7 +10,9 @@ class MainControlPage_ extends Component {
     return (
       <div className='controlpage-container'>
         <TeamsList/>
-        <MembersList/>
+        {
+          this.props.seletedGroup ? <MembersList/> : <div/>
+        }
       </div>
     );
   }
@@ -19,6 +21,7 @@ class MainControlPage_ extends Component {
 const mapStateToProps = state => {
   return{
     myTeams: state.myTeams,
+    seletedGroup: state.seletedGroup,
   }
 };
 
