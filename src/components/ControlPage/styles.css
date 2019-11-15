@@ -15,7 +15,16 @@
 .teamitem-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.member-item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
     font-size: 14px;
 }
@@ -61,4 +70,13 @@
 
 input:focus{
     outline: none;
+}
+
+.item-shortlist-btn {
+    width: 20px;
+    margin: 10px;
+    padding: 4px;
+}
+.item-shortlist-btn:hover {
+    background-color: #282c34;
 }

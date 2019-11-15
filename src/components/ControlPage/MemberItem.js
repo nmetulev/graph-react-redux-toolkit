@@ -4,8 +4,19 @@ import PropTypes from 'prop-types';
 
 import './styles.css'
 import {selectMember} from "../../stateHandlers/actions";
+import plusImg from "../../images/plus-8x.png";
 
 class MemberItem_ extends Component {
+  onClickAddShortList(e) {
+    e.stopPropagation();
+    console.log('click');
+  }
+
+  constructor(props) {
+    super(props);
+    this.onClickAddShortList = this.onClickAddShortList.bind(this);
+  }
+
   render() {
     const selectedGroupClassName = (
       this.props.seletedMember &&
@@ -14,10 +25,15 @@ class MemberItem_ extends Component {
     ) ? 'item-selected' : '';
 
     return (
-      <div className={`app-button teamitem-container ${selectedGroupClassName}`}
+      <div className={`app-button member-item-container ${selectedGroupClassName}`}
            onClick={()=>this.props.selectMember(this.props.member)}
       >
         <div>{this.props.member.displayName}</div>
+        <img className='item-shortlist-btn'
+             src={plusImg}
+             alt='Add user to shortlist'
+             onClick={this.onClickAddShortList}
+        />
       </div>
     );
   }
