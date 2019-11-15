@@ -2,7 +2,7 @@ import {
   SET_ACCESS_TOKEN,
   SET_ACCOUNT,
   SET_MY_TEAMS,
-  SET_GROUP_MEMBERS, SELECT_GROUP, SELECT_MEMBER, SET_MEMBER_NAME_FILTER,
+  SET_GROUP_MEMBERS, SELECT_GROUP, SELECT_MEMBER, SET_MEMBER_NAME_FILTER, ADD_MEMBER_SHORTLIST, REM_MEMBER_SHORTLIST,
 } from "./actionTypes";
 import {setAccessTokenApi, fetchMyTeamsApi, fetchGroupMembersApi} from './api';
 
@@ -52,6 +52,20 @@ function setGroupMembers(groupId, groupMembers) {
     type: SET_GROUP_MEMBERS,
     groupId: groupId,
     groupMembers: groupMembers,
+  }
+}
+
+export function addMemberToShortList(member) {
+  return {
+    type: ADD_MEMBER_SHORTLIST,
+    member: member
+  }
+}
+
+export function removeMemberFromShortList(member) {
+  return {
+    type: REM_MEMBER_SHORTLIST,
+    member: member
   }
 }
 

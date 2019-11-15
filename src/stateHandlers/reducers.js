@@ -5,7 +5,7 @@ import {
   SET_GROUP_MEMBERS,
   SELECT_GROUP,
   SELECT_MEMBER,
-  SET_MEMBER_NAME_FILTER
+  SET_MEMBER_NAME_FILTER, ADD_MEMBER_SHORTLIST, REM_MEMBER_SHORTLIST
 } from "./actionTypes";
 
 const initialState = {
@@ -16,6 +16,7 @@ const initialState = {
   seletedMember: null,
   membersByGroup: {},
   memberNameFilter: '',
+  memberShortListById: {},
 };
 
 function reducer(state = initialState, action) {
@@ -34,6 +35,18 @@ function reducer(state = initialState, action) {
       return {...state, ...{memberNameFilter:action.memberNameFilter}};
     case SET_GROUP_MEMBERS:
       return {...state, ...{membersByGroup: {[action.groupId]:action.groupMembers} }};
+    case ADD_MEMBER_SHORTLIST:
+    {
+      const newObj = {...state.memberShortListById};
+      newObj[action.member.id] = action.member;
+      return {...state, ...{memberShortListById: newObj }};
+    }
+    case REM_MEMBER_SHORTLIST:
+    {
+      const newObj = {...state.memberShortListById};
+      delete newObj[action.member.id];
+      return {...state, ...{memberShortListById: newObj }};
+    }
 
     default:
       return state
