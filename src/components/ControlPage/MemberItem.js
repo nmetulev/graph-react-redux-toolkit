@@ -25,7 +25,6 @@ class MemberItem_ extends Component {
   }
 
   render() {
-    console.log('RENDER this.props.memberShortListById[this.props.member.id]:',this.props.memberShortListById[this.props.member.id]);
     const selectedGroupClassName = (
       this.props.seletedMember &&
       this.props.seletedMember.id &&
@@ -56,7 +55,6 @@ class MemberItem_ extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('memberShortListById:',state.memberShortListById);
   return{
     seletedMember: state.seletedMember,
     memberShortListById: state.memberShortListById,
