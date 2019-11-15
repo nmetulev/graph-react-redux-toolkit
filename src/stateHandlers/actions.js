@@ -2,7 +2,7 @@ import {
   SET_ACCESS_TOKEN,
   SET_ACCOUNT,
   SET_MY_TEAMS,
-  SET_GROUP_MEMBERS, SELECT_GROUP, SELECT_MEMBER,
+  SET_GROUP_MEMBERS, SELECT_GROUP, SELECT_MEMBER, SET_MEMBER_NAME_FILTER,
 } from "./actionTypes";
 import {setAccessTokenApi, fetchMyTeamsApi, fetchGroupMembersApi} from './api';
 
@@ -38,6 +38,12 @@ export function selectMember(seletedMember) {
   return {
     type: SELECT_MEMBER,
     seletedMember: seletedMember,
+  }
+}
+export function setMemberNameFilter(memberNameFilter) {
+  return {
+    type: SET_MEMBER_NAME_FILTER,
+    memberNameFilter: memberNameFilter,
   }
 }
 
