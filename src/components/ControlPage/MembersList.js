@@ -26,7 +26,7 @@ const mapStateToProps = state => {
   }
   return{
     members: members,
-    seletedGroup: state.seletedGroup
+    seletedGroup: state.seletedGroup,
   }
 };
 

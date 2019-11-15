@@ -3,7 +3,7 @@ import {
   SET_ACCOUNT,
   SET_MY_TEAMS,
   SET_GROUP_MEMBERS,
-  SELECT_GROUP
+  SELECT_GROUP, SELECT_MEMBER
 } from "./actionTypes";
 
 const initialState = {
@@ -11,6 +11,7 @@ const initialState = {
   accessToken: null,
   myTeams: [],
   seletedGroup: null,
+  seletedMember: null,
   membersByGroup: {}
 };
 
@@ -24,6 +25,8 @@ function reducer(state = initialState, action) {
       return {...state, ...{myTeams:action.myTeams}};
       case SELECT_GROUP:
       return {...state, ...{seletedGroup:action.seletedGroup}};
+      case SELECT_MEMBER:
+      return {...state, ...{seletedMember:action.seletedMember}};
     case SET_GROUP_MEMBERS:
       return {...state, ...{membersByGroup: {[action.groupId]:action.groupMembers} }};
 

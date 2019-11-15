@@ -8,8 +8,7 @@ class TeamsList_ extends Component {
 
   render() {
     const teamItems = this.props.myTeams.map(team=>{
-      console.log('team:',team);
-      return <TeamItem team={team} key={team.id} seletedGroup={this.props.seletedGroup}/>
+      return <TeamItem team={team} key={team.id} />
     });
     return (
       <div className='teamlist-container'>
@@ -23,7 +22,6 @@ class TeamsList_ extends Component {
 const mapStateToProps = state => {
   return{
     myTeams: state.myTeams,
-    seletedGroup: state.seletedGroup,
   }
 };
 

@@ -3,11 +3,21 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import './styles.css'
+import sendImg from '../../images/media-step-forward-8x.png';
+import {selectMember} from "../../stateHandlers/actions";
 
 class MemberItem_ extends Component {
   render() {
+    const selectedGroupClassName = (
+      this.props.seletedMember &&
+      this.props.seletedMember.id &&
+      this.props.seletedMember.id===this.props.member.id
+    ) ? 'item-selected' : '';
+
     return (
-      <div className='app-button teamitem-container'>
+      <div className={`app-button teamitem-container ${selectedGroupClassName}`}
+           onClick={()=>this.props.selectMember(this.props.member)}
+      >
         <div>{this.props.member.displayName}</div>
       </div>
     );
@@ -16,13 +26,13 @@ class MemberItem_ extends Component {
 
 const mapStateToProps = state => {
   return{
-    // myTeams: state.myTeams,
+    seletedMember: state.seletedMember,
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return{
-    // fetchMyTeams: () => dispatch(fetchMyTeams()),
+    selectMember: seletedMember => dispatch(selectMember(seletedMember)),
   }
 };
 
@@ -33,6 +43,7 @@ const MemberItem = connect(
 
 MemberItem.propTypes = {
   member: PropTypes.object.isRequired,
+  seletedMember: PropTypes.object
 };
 
 export default MemberItem;

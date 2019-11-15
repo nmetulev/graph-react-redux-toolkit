@@ -11,7 +11,7 @@ class TeamsItem_ extends Component {
       this.props.seletedGroup &&
       this.props.seletedGroup.id &&
       this.props.seletedGroup.id===this.props.team.id
-    ) ? 'group-item-selected' : '';
+    ) ? 'item-selected' : '';
 
     return (
       <div className={`app-button teamitem-container ${selectedGroupClassName}`}
@@ -25,7 +25,7 @@ class TeamsItem_ extends Component {
 
 const mapStateToProps = state => {
   return{
-    // myTeams: state.myTeams,
+    seletedGroup: state.seletedGroup,
   }
 };
 
@@ -42,7 +42,6 @@ const TeamsItem = connect(
 
 TeamsItem.propTypes = {
   team: PropTypes.object.isRequired,
-  seletedGroup: PropTypes.object,
 };
 
 export default TeamsItem;
