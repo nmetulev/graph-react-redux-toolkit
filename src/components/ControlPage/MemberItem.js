@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import './styles.css'
-import sendImg from '../../images/media-step-forward-8x.png';
 import {selectMember} from "../../stateHandlers/actions";
 
 class MemberItem_ extends Component {
