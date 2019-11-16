@@ -3,15 +3,21 @@ import { connect } from 'react-redux';
 
 import TeamsList from "./TeamsList";
 import MembersList from "./MembersList";
+import SelectedMember from "./SelectedMember";
 
 class MainControlPage_ extends Component {
 
   render() {
     return (
-      <div className='controlpage-container'>
-        <TeamsList/>
+      <div className='controlpage-container-vert'>
+        <div className='controlpage-container-horiz'>
+          <TeamsList/>
+          {
+            this.props.seletedGroup ? <MembersList/> : <div/>
+          }
+        </div>
         {
-          this.props.seletedGroup ? <MembersList/> : <div/>
+          this.props.seletedMember ? <SelectedMember/> : <div/>
         }
       </div>
     );
@@ -22,6 +28,7 @@ const mapStateToProps = state => {
   return{
     myTeams: state.myTeams,
     seletedGroup: state.seletedGroup,
+    seletedMember: state.seletedMember,
   }
 };
 

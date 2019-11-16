@@ -1,5 +1,13 @@
 
-.controlpage-container {
+.controlpage-container-vert {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+
+.controlpage-container-horiz {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -76,4 +84,19 @@ input:focus{
     width: 20px;
     margin: 10px;
     padding: 4px;
+}
+
+.selected-member-container {
+    margin: 20px;
+}
+
+.selected-row {
+    display: flex;
+    flex-direction: row;
+}
+.selected-label {
+    font-weight: 600;
+}
+.selected-value {
+    padding-left: 10px;
 }

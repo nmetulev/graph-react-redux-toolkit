@@ -8,7 +8,7 @@ import "./App.css";
 class App_ extends React.Component {
   render() {
     return (
-      <div>
+      <div className='app-container'>
         <AuthPage/>
         {(this.props.account) ? <ControlPage/> : <div/>}
       </div>
