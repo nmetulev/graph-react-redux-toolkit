@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TeamsList from "./TeamsList";
 import MembersList from "./MembersList";
 import SelectedMember from "./SelectedMember";
+import MemberShortList from "./MemberShortList";
 
 class MainControlPage_ extends Component {
 
@@ -14,6 +15,9 @@ class MainControlPage_ extends Component {
           <TeamsList/>
           {
             this.props.seletedGroup ? <MembersList/> : <div/>
+          }
+          {
+            this.props.hasMemberShortList ? <MemberShortList /> : <div/>
           }
         </div>
         {
@@ -29,6 +33,7 @@ const mapStateToProps = state => {
     myTeams: state.myTeams,
     seletedGroup: state.seletedGroup,
     seletedMember: state.seletedMember,
+    hasMemberShortList: Object.values(state.memberShortListById).length>0,
   }
 };
 
