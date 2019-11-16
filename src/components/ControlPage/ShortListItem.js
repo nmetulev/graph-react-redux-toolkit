@@ -3,12 +3,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import './styles.css'
-import {removeMemberFromShortList} from "../../stateHandlers/actions";
+import {removeMemberFromShortList, selectMember} from "../../stateHandlers/actions";
 
 class ShortListItem_ extends Component {
   render() {
+    const selectedGroupClassName = (
+      this.props.seletedMember &&
+      this.props.seletedMember.id &&
+      this.props.seletedMember.id===this.props.member.id
+    ) ? 'item-selected' : '';
     return (
-      <div className='app-button member-item-container'>
+      <div className={`app-button member-item-container ${selectedGroupClassName}`}
+           onClick={()=>this.props.selectMember(this.props.member)}
+      >
         <div>{this.props.member.displayName}</div>
       </div>
     );
@@ -17,11 +24,13 @@ class ShortListItem_ extends Component {
 
 const mapStateToProps = state => {
   return{
+    seletedMember: state.seletedMember
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return{
+    selectMember: seletedMember => dispatch(selectMember(seletedMember)),
     removeMemberFromShortList: member => dispatch(removeMemberFromShortList(member)),
   }
 };

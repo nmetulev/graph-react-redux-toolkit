@@ -28,7 +28,7 @@ class MembersList_ extends Component {
     });
     return (
       <div className='teamlist-container'>
-        <div className='column-title-text'>Members</div>
+        <div className='column-title-text'>{this.props.seletedGroup.displayName}</div>
         <div className='filter-container'>
           <img src={searchImg} alt='Filter Members'/>
           <input type="text" value={this.props.memberNameFilter}
