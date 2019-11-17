@@ -13,6 +13,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
+    padding: 5px 0px;
 }
 
 .teamlist-container {
@@ -91,8 +92,9 @@ input:focus{
 }
 
 .selected-member-container {
+    width: 100%;
     background-color: lightblue;
-    padding: 20px;
+    padding: 20px 0px;
 }
 
 .selected-row {

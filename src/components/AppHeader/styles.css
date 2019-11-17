@@ -7,7 +7,10 @@
 }
 .logo-container {
     background-color: #e6e7e8;
-    padding: 15px 30px;
+    padding: 5px 30px;
+}
+.logo-container img {
+    height: 60px;
 }
 
 .acct-btn-container {

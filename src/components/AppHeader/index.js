@@ -6,7 +6,7 @@ import {
   setAccessToken,
   loadAllData,
 } from "../../stateHandlers/actions";
-import logoImg from '../../images/bluemedia-logo.png';
+import logoImg from '../../images/nb_logo.png';
 import acctLoginImg from '../../images/account-login-8x.png';
 import acctLogoutImg from '../../images/account-logout-8x.png';
 import './styles.css'
