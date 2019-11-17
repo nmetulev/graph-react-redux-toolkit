@@ -8,9 +8,9 @@ import {removeMemberFromShortList, selectMember} from "../../stateHandlers/actio
 class ShortListItem_ extends Component {
   render() {
     const selectedGroupClassName = (
-      this.props.seletedMember &&
-      this.props.seletedMember.id &&
-      this.props.seletedMember.id===this.props.member.id
+      this.props.selectedMember &&
+      this.props.selectedMember.id &&
+      this.props.selectedMember.id===this.props.member.id
     ) ? 'item-selected' : '';
     return (
       <div className={`app-button member-item-container ${selectedGroupClassName}`}
@@ -24,13 +24,13 @@ class ShortListItem_ extends Component {
 
 const mapStateToProps = state => {
   return{
-    seletedMember: state.seletedMember
+    selectedMember: state.selectedMember
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return{
-    selectMember: seletedMember => dispatch(selectMember(seletedMember)),
+    selectMember: selectedMember => dispatch(selectMember(selectedMember)),
     removeMemberFromShortList: member => dispatch(removeMemberFromShortList(member)),
   }
 };

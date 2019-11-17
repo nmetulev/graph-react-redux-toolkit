@@ -4,7 +4,7 @@ import {
   SET_MY_TEAMS,
   SET_GROUP_MEMBERS, SELECT_GROUP, SELECT_MEMBER, SET_MEMBER_NAME_FILTER, ADD_MEMBER_SHORTLIST, REM_MEMBER_SHORTLIST,
 } from "./actionTypes";
-import {setAccessTokenApi, fetchMyTeamsApi, fetchGroupMembersApi} from './api';
+import {setAccessTokenApi, fetchMyTeamsApi, fetchGroupMembersApi, submitMemberApi} from './api';
 
 export function setAccount(account) {
   return {
@@ -34,10 +34,10 @@ export function selectGroup(seletedGroup) {
     seletedGroup: seletedGroup,
   }
 }
-export function selectMember(seletedMember) {
+export function selectMember(selectedMember) {
   return {
     type: SELECT_MEMBER,
-    seletedMember: seletedMember,
+    selectedMember: selectedMember,
   }
 }
 export function setMemberNameFilter(memberNameFilter) {
@@ -82,6 +82,13 @@ export function fetchGroupMembers(groupId) {
     apiFunc: fetchGroupMembersApi,
     apiFuncParam: [groupId],
     rcvdFunc: groupMembers=>dispatch=>dispatch(setGroupMembers(groupId, groupMembers)),
+  });
+}
+
+export function submitMember(member) {
+  return _apiCall({
+    apiFunc: submitMemberApi,
+    apiFuncParam: [member]
   });
 }
 

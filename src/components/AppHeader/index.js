@@ -113,7 +113,7 @@ class AuthPage_ extends Component {
     return (
       <div className='header'>
         <div className='logo-container'>
-          <img src={logoImg} alt='Bluemedia Company Logo'/>
+          <img src={logoImg} alt='New Blue Company Logo'/>
         </div>
         {!this.props.account ? (
           <div className='app-button acct-btn-container' onClick={() => this.onSignIn(useRedirectFlow)}>

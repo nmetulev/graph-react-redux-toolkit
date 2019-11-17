@@ -10,23 +10,23 @@ class SelectedMember_ extends Component {
         <tbody>
           <tr>
             <td className='selected-label'>Name:</td>
-            <td className='selected-value' >{this.props.seletedMember.displayName}</td>
+            <td className='selected-value' >{this.props.selectedMember.displayName}</td>
           </tr>
           <tr>
             <td className='selected-label'>Email:</td>
-            <td className='selected-value' >{this.props.seletedMember.mail}</td>
+            <td className='selected-value' >{this.props.selectedMember.mail}</td>
           </tr>
           <tr>
             <td className='selected-label'>Title:</td>
-            <td className='selected-value' >{this.props.seletedMember.jobTitle}</td>
+            <td className='selected-value' >{this.props.selectedMember.jobTitle}</td>
           </tr>
           <tr>
             <td className='selected-label'>Phone:</td>
-            <td className='selected-value' >{this.props.seletedMember.mobilePhone}</td>
+            <td className='selected-value' >{this.props.selectedMember.mobilePhone}</td>
           </tr>
           <tr>
             <td className='selected-label'>Location:</td>
-            <td className='selected-value' >{this.props.seletedMember.officeLocation}</td>
+            <td className='selected-value' >{this.props.selectedMember.officeLocation}</td>
           </tr>
         </tbody>
       </table>
@@ -36,7 +36,7 @@ class SelectedMember_ extends Component {
 
 const mapStateToProps = state => {
   return{
-    seletedMember: state.seletedMember,
+    selectedMember: state.selectedMember,
   }
 };
 

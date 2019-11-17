@@ -26,9 +26,9 @@ class MemberItem_ extends Component {
 
   render() {
     const selectedGroupClassName = (
-      this.props.seletedMember &&
-      this.props.seletedMember.id &&
-      this.props.seletedMember.id===this.props.member.id
+      this.props.selectedMember &&
+      this.props.selectedMember.id &&
+      this.props.selectedMember.id===this.props.member.id
     ) ? 'item-selected' : '';
 
     const shortListImg = (this.props.memberShortListById[this.props.member.id]) ?
@@ -56,14 +56,14 @@ class MemberItem_ extends Component {
 
 const mapStateToProps = state => {
   return{
-    seletedMember: state.seletedMember,
+    selectedMember: state.selectedMember,
     memberShortListById: state.memberShortListById,
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return{
-    selectMember: seletedMember => dispatch(selectMember(seletedMember)),
+    selectMember: selectedMember => dispatch(selectMember(selectedMember)),
     addMemberToShortList: member => dispatch(addMemberToShortList(member)),
     removeMemberFromShortList: member => dispatch(removeMemberFromShortList(member)),
   }
@@ -76,7 +76,7 @@ const MemberItem = connect(
 
 MemberItem.propTypes = {
   member: PropTypes.object.isRequired,
-  seletedMember: PropTypes.object
+  selectedMember: PropTypes.object
 };
 
 export default MemberItem;

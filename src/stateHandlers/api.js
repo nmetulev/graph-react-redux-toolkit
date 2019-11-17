@@ -148,3 +148,6 @@ export function fetchGroupMembersApi(groupId) {
     .execute();
 }
 
+export function submitMemberApi(member) {
+  return Promise.resolve();
+}

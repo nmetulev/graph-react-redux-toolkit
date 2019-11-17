@@ -107,3 +107,18 @@ input:focus{
 .selected-value {
     padding-left: 10px;
 }
+
+.controlpage-selectedmember-container {
+    width: 100%;
+}
+
+.send-btn {
+    width: 100%;
+    background: aliceblue;
+    margin: 2px 0px;
+    font-size: 1rem;
+    padding: 10px;
+}
+.send-btn:focus{
+    outline: none;
+}

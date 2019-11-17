@@ -13,7 +13,7 @@ const initialState = {
   accessToken: null,
   myTeams: [],
   seletedGroup: null,
-  seletedMember: null,
+  selectedMember: null,
   membersByGroup: {},
   memberNameFilter: '',
   memberShortListById: {},
@@ -30,7 +30,7 @@ function reducer(state = initialState, action) {
       case SELECT_GROUP:
       return {...state, ...{seletedGroup:action.seletedGroup}};
       case SELECT_MEMBER:
-      return {...state, ...{seletedMember:action.seletedMember}};
+      return {...state, ...{selectedMember:action.selectedMember}};
       case SET_MEMBER_NAME_FILTER:
       return {...state, ...{memberNameFilter:action.memberNameFilter}};
     case SET_GROUP_MEMBERS:
