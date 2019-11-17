@@ -85,10 +85,17 @@ export function fetchGroupMembers(groupId) {
   });
 }
 
+export function handleSubmitResponse(member) {
+  alert(`{id:${member.id}, name:${member.displayName}`);
+  return {
+    type: 'do nothing'
+  };
+}
 export function submitMember(member) {
   return _apiCall({
     apiFunc: submitMemberApi,
-    apiFuncParam: [member]
+    apiFuncParam: [member],
+    rcvdFunc: handleSubmitResponse
   });
 }
 

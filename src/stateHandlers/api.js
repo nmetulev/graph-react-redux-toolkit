@@ -149,5 +149,5 @@ export function fetchGroupMembersApi(groupId) {
 }
 
 export function submitMemberApi(member) {
-  return Promise.resolve();
+  return Promise.resolve({value:member});
 }

@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './styles.css'
+import {submitMember} from "../../stateHandlers/actions";
 
 class SubmitSelectedMember_ extends Component {
   render() {
     return (
-      <button className='send-btn'>Send {this.props.selectedMember.displayName}</button>
+      <button className='send-btn' onClick={()=>this.props.submitMember(this.props.selectedMember)}>
+        Send {this.props.selectedMember.displayName}
+      </button>
     );
   }
 }
@@ -19,7 +22,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    // selectGroup: group => dispatch(selectGroup(group)),
+    submitMember: member => dispatch(submitMember(member)),
   }
 };
 
