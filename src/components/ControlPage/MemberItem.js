@@ -7,6 +7,9 @@ import {selectMember, addMemberToShortList, removeMemberFromShortList} from "../
 import plusImg from "../../images/plus-8x.png";
 import minusImg from "../../images/minus.png";
 
+import '@microsoft/mgt/dist/es6/components/mgt-person/mgt-person';
+
+
 class MemberItem_ extends Component {
   onClickAddShortList(e) {
     e.stopPropagation();
@@ -47,10 +50,16 @@ class MemberItem_ extends Component {
       <div className={`app-button member-item-container ${selectedGroupClassName}`}
            onClick={()=>this.props.selectMember(this.props.member)}
       >
-        <div>{this.props.member.displayName}</div>
+        {/* <div>{this.props.member.displayName}</div> */}
+        <mgt-person show-name ref="person"></mgt-person>
         {shortListImg}
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.refs.person.personDetails = this.props.member;
+    this.refs.person.personImage = '@';
   }
 }
 

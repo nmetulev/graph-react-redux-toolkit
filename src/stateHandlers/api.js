@@ -1,3 +1,6 @@
+import { Providers } from "@microsoft/mgt/dist/es6/Providers";
+import { ProviderState } from "@microsoft/mgt/dist/es6/providers/IProvider";
+
 const HttpMethods = {
   GET:'GET',
   PUT:'PUT',
@@ -137,15 +140,26 @@ class Request {
 }
 
 export function fetchMyTeamsApi() {
-  return new Request.Builder('me/memberOf')
-    .build()
-    .execute();
+console.log('fetchMyTeamsApi');
+  if (Providers.globalProvider) {
+    let p = Providers.globalProvider;
+
+    if (p.state === ProviderState.SignedIn) {
+      let client = p.graph.client;
+
+      return client.api('me/memberOf').get();
+    }
+  }
+
+  // return new Request.Builder('me/memberOf')
+  //   .build()
+  //   .execute();
 }
 
 export function fetchGroupMembersApi(groupId) {
-  return new Request.Builder(`groups/${groupId}/members`)
-    .build()
-    .execute();
+      let client = Providers.globalProvider.graph.client;
+
+      return client.api(`groups/${groupId}/members`).get();
 }
 
 export function submitMemberApi(member) {

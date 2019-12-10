@@ -10,6 +10,7 @@ import logoImg from '../../images/nb_logo.png';
 import acctLoginImg from '../../images/account-login-8x.png';
 import acctLogoutImg from '../../images/account-logout-8x.png';
 import './styles.css'
+import '@microsoft/mgt/dist/es6/components/mgt-login/mgt-login'
 
 import {
   GRAPH_REQUESTS,
@@ -18,7 +19,7 @@ import {
   requiresInteraction
 } from "./auth-utils";
 
-const useRedirectFlow = isIE();
+// const useRedirectFlow = isIE();
 
 class AuthPage_ extends Component {
   constructor(props) {
@@ -36,77 +37,77 @@ class AuthPage_ extends Component {
     this.props.loadAllData();
   }
 
-  async acquireToken(request, redirect) {
-    return msalApp.acquireTokenSilent(request).catch(error => {
-      // Call acquireTokenPopup (popup window) in case of acquireTokenSilent failure
-      // due to consent or interaction required ONLY
-      if (requiresInteraction(error.errorCode)) {
-        return redirect
-          ? msalApp.acquireTokenRedirect(request)
-          : msalApp.acquireTokenPopup(request);
-      }
-    });
-  }
+  // async acquireToken(request, redirect) {
+  //   return msalApp.acquireTokenSilent(request).catch(error => {
+  //     // Call acquireTokenPopup (popup window) in case of acquireTokenSilent failure
+  //     // due to consent or interaction required ONLY
+  //     if (requiresInteraction(error.errorCode)) {
+  //       return redirect
+  //         ? msalApp.acquireTokenRedirect(request)
+  //         : msalApp.acquireTokenPopup(request);
+  //     }
+  //   });
+  // }
 
-  async onSignIn(redirect) {
-    if (redirect) {
-      return msalApp.loginRedirect(GRAPH_REQUESTS.LOGIN);
-    }
+  // async onSignIn(redirect) {
+  //   if (redirect) {
+  //     return msalApp.loginRedirect(GRAPH_REQUESTS.LOGIN);
+  //   }
 
-    const loginResponse = await msalApp
-      .loginPopup(GRAPH_REQUESTS.LOGIN)
-      .catch(error => {
-        this.setState({
-          error: error.message
-        });
-      });
+  //   const loginResponse = await msalApp
+  //     .loginPopup(GRAPH_REQUESTS.LOGIN)
+  //     .catch(error => {
+  //       this.setState({
+  //         error: error.message
+  //       });
+  //     });
 
-    if (loginResponse) {
-      this.setState({
-        error: null
-      });
+  //   if (loginResponse) {
+  //     this.setState({
+  //       error: null
+  //     });
 
-      const tokenResponse = await this.acquireToken(
-        GRAPH_REQUESTS.LOGIN
-      ).catch(error => {
-        this.setState({
-          error: error.message
-        });
-      });
+  //     const tokenResponse = await this.acquireToken(
+  //       GRAPH_REQUESTS.LOGIN
+  //     ).catch(error => {
+  //       this.setState({
+  //         error: error.message
+  //       });
+  //     });
 
-      if (tokenResponse) {
-        this.initApp(loginResponse.account, tokenResponse.accessToken);
-      }
-    }
-  }
+  //     if (tokenResponse) {
+  //       this.initApp(loginResponse.account, tokenResponse.accessToken);
+  //     }
+  //   }
+  // }
 
-  onSignOut() {
-    msalApp.logout();
-  }
+  // onSignOut() {
+  //   msalApp.logout();
+  // }
 
   async componentDidMount() {
-    msalApp.handleRedirectCallback(error => {
-      if (error) {
-        const errorMessage = error.errorMessage ? error.errorMessage : "Unable to acquire access token.";
-        // setState works as long as navigateToLoginRequestUrl: false
-        this.setState({
-          error: errorMessage
-        });
-      }
-    });
+    // msalApp.handleRedirectCallback(error => {
+    //   if (error) {
+    //     const errorMessage = error.errorMessage ? error.errorMessage : "Unable to acquire access token.";
+    //     // setState works as long as navigateToLoginRequestUrl: false
+    //     this.setState({
+    //       error: errorMessage
+    //     });
+    //   }
+    // });
 
-    const account = msalApp.getAccount();
+    // const account = msalApp.getAccount();
 
-    if (account) {
-      const tokenResponse = await this.acquireToken(
-        GRAPH_REQUESTS.LOGIN,
-        useRedirectFlow
-      );
+    // if (account) {
+    //   const tokenResponse = await this.acquireToken(
+    //     GRAPH_REQUESTS.LOGIN,
+    //     useRedirectFlow
+    //   );
 
-      if (tokenResponse) {
-        this.initApp(account, tokenResponse.accessToken);
-      }
-    }
+    //   if (tokenResponse) {
+    //     this.initApp(account, tokenResponse.accessToken);
+    //   }
+    // }
   }
 
   render() {
@@ -115,7 +116,8 @@ class AuthPage_ extends Component {
         <div className='logo-container'>
           <img src={logoImg} alt='New Blue Company Logo'/>
         </div>
-        {!this.props.account ? (
+        <mgt-login></mgt-login>
+        {/* {!this.props.account ? (
           <div className='app-button acct-btn-container' onClick={() => this.onSignIn(useRedirectFlow)}>
             <span className='acct-name-text'>Sign In</span>
             <img src={acctLoginImg} alt='Sign IN'/>
@@ -125,7 +127,7 @@ class AuthPage_ extends Component {
             <span className='acct-name-text'>{this.props.account.name}</span>
             <img src={acctLogoutImg} alt='Sign OUT'/>
           </div>
-        )}
+        )} */}
         {this.state.error && (
           <p className="error">Error: {this.error}</p>
         )}
